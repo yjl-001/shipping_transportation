@@ -1,9 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/db_books?serverTimezone=Shanghai&?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1:3306/shippingManagement?serverTimezone=Shanghai&?useUnicode=true&characterEncoding=utf8
     username: root
     password: 123456
+  security:
+    user:
+      name: user
+      password: root
 
 server:
-  port: 8088
+  port: 2222
+
