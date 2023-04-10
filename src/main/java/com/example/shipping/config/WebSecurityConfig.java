@@ -1,46 +1,69 @@
 package com.example.shipping.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.example.shipping.filter.JwtAuthenticationFilter;
 /**
  * spring security配置
  */
 @Configuration
+@EnableWebSecurity
 public class WebSecurityConfig{
+    @Autowired
+    private AuthenticationConfiguration authenticationConfiguration;
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Bean
+    AuthenticationManager authenticationManager() throws Exception{
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
+        //设置过滤器
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        //设置请求认证
         .authorizeHttpRequests()
-        .requestMatchers("/r/**").authenticated()
-            //除了/r/**，其它的请求可以访问
-            .anyRequest().permitAll()
-            .and()
-            //允许表单登录
-            .formLogin()
+            .requestMatchers("/login-view").anonymous()
+            .requestMatchers("user/login").anonymous()
+            .requestMatchers("/register").anonymous()
+            .requestMatchers("/user/register").anonymous()
+            //其它的请求都需要登录后才能访问
+            .anyRequest().authenticated()
+        .and()
+        //允许表单登录
+        .formLogin()
             //登录页面路径
             .loginPage("/login-view")
             .loginProcessingUrl("/login")
-            //自定义登录成功的页面地址
-            .successForwardUrl("/index")
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-            .and()
-            .logout()
+        .and()
+        .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .logout()
             //登录退出
             .logoutUrl("/logout")
             .logoutSuccessUrl("/login-view?logout")
-            .and().build();
+        .and().build();
 
     }
 }

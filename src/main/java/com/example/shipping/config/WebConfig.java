@@ -1,10 +1,12 @@
 package com.example.shipping.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * spring mvc 配置
  */
+@Configuration
 public class WebConfig implements WebMvcConfigurer{
     /**
      * 用此方法来添加视图控制器。
