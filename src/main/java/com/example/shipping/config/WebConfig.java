@@ -18,5 +18,6 @@ public class WebConfig implements WebMvcConfigurer{
         registry.addViewController("/").setViewName("/login-view");
         //将login-view转到login页面
         registry.addViewController("/login-view").setViewName("login");
+
     }
 }

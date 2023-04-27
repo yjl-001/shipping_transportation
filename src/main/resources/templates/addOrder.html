@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>商户添加订单</title>
-    <link rel="stylesheet" href="css/addOrder.css">
+    <link rel="stylesheet" th:href="@{/css/addOrder.css}">
 </head>
 <body>
 <!-- 顶部导航 -->
@@ -19,38 +19,30 @@
 <!-- 添加订单表单 -->
 <div class="main-content">
     <h1>商户添加订单</h1>
-    <form>
+    <form th:action="@{/user/addGoods}" method="post">
         <div class="form-group">
             <label for="goods-description">货物描述：</label>
-            <input type="text" id="goods-description" name="goods-description" required>
+            <input type="text" id="goods-description" name="goods_description" required>
         </div>
         <div class="form-group">
             <label for="begin-addr">出发地：</label>
-            <input type="text" id="begin-addr" name="begin-addr" required>
+            <input type="text" id="begin-addr" name="begin_addr" required>
         </div>
         <div class="form-group">
             <label for="dest-addr">目的地：</label>
-            <input type="text" id="dest-addr" name="dest-addr" required>
+            <input type="text" id="dest-addr" name="dest_addr" required>
         </div>
         <div class="form-group">
             <label for="price">运输价格：</label>
             <input type="number" id="price" name="price" required>
         </div>
         <div class="form-group">
-            <label for="consigner">发货人：</label>
-            <input type="text" id="consigner" name="consigner" required>
+            <label for="dest-time">货物发出时间：</label>
+            <input type="datetime-local" id="create-time" name="create_time" required>
         </div>
         <div class="form-group">
-            <label for="dest-time">货物要求达到时间：</label>
-            <input type="datetime-local" id="dest-time" name="dest-time" required>
-        </div>
-        <div class="form-group">
-            <label for="company-id">承运商：</label>
-            <input type="text" id="company-id" name="company-id" required>
-        </div>
-        <div class="form-group">
-            <label for="driver-id">司机：</label>
-            <input type="text" id="driver-id" name="driver-id" required>
+            <label for="dest-time">货物要求到达时间：</label>
+            <input type="datetime-local" id="dest-time" name="dest_time" required>
         </div>
         <button type="submit">提交</button>
     </form>

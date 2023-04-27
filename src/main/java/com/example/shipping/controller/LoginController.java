@@ -64,7 +64,10 @@ public class LoginController {
         Map<String, Object> attributes = new HashMap<String, Object>();
         attributes.put("username", loginUser.getUsername());
         attributes.put("result", responseResult);
-        return new ModelAndView("index", attributes);
+        if(loginUser.getUser().getRole_key().equals("company"))
+            return new ModelAndView("viewOrderShop", attributes);
+        else
+            return new ModelAndView("viewOrderUser", attributes);
     }
 
 }

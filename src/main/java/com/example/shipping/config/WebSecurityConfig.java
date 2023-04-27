@@ -45,9 +45,12 @@ public class WebSecurityConfig{
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         //设置请求认证
         .authorizeHttpRequests()
+            .requestMatchers("/css/**").permitAll()
+            .requestMatchers("/js/**").permitAll()
+            // .requestMatchers("/**").permitAll()
             .requestMatchers("/login-view").anonymous()
-            .requestMatchers("user/login").anonymous()
-            .requestMatchers("/register").anonymous()
+            .requestMatchers("/user/login").anonymous()
+            .requestMatchers("/register-view").anonymous()
             .requestMatchers("/user/register").anonymous()
             //其它的请求都需要登录后才能访问
             .anyRequest().authenticated()

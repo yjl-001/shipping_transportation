@@ -1,16 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>商户查看订单</title>
-    <link rel="stylesheet" href="css/viewOrder.css">
+    <link rel="stylesheet" th:href="@{/css/viewOrder.css}">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var result = /*[[${ result }]]*/ null;
+        /*]]>*/
+        console.log(result);
+        var data = result['data'];
+        document.cookie = data['token'];
+        console.log(document.cookie);
+    </script>
 </head>
 
 <!-- 顶部导航 -->
 <nav>
     <div class="nav-links">
-        <a href="addOrder" class="nav-link">商户添加订单</a>
+        <a href="javascript:submit()" class="nav-link">商户添加订单</a>
         <a href="viewOrderUser" class="nav-link active">商户查看订单</a>
         <a href="trackOrder" class="nav-link">商户追踪订单状态</a>
         <a href="login" class="nav-link">登出</a>
@@ -58,6 +68,24 @@
     </table>
 </div>
 
-<script src="script.js"></script>
+<script>
+    function submit() {
+        // 异步对象
+        var xhr = new XMLHttpRequest();
+        // 设置属性
+        xhr.open('get', 'http://localhost:8080/user/addOrder');
+        xhr.withCredentials = true;
+        xhr.setRequestHeader("token", document.cookie);
+        // 将数据通过send方法传递
+        xhr.send('name=fox&age=18');
+        // 发送并接受返回值
+        xhr.onreadystatechange = function () {
+            // 这步为判断服务器是否正确响应
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                window.location.href="/user/addOrderView";
+            }
+        };
+        }
+</script>
 </body>
 </html>
