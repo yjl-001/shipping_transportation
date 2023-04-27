@@ -14,7 +14,6 @@ import com.alibaba.fastjson.JSON;
 import com.example.shipping.entity.LoginUser;
 import com.example.shipping.utils.JwtUtil;
 import com.example.shipping.utils.RedisCache;
-
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -52,7 +51,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         }
         //存入SecurityContext
         //TODO 获取权限信息封装到AuthenticationToken中
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,null);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);
     }

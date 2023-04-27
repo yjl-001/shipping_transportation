@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>承运商增加运力</title>
+    <link rel="stylesheet" href="css/addCapacity.css">
+</head>
+<body>
+<!-- 顶部导航 -->
+<nav>
+    <div class="nav-links">
+        <a href="viewOrderShop" class="nav-link">承运商查看订单</a>
+        <a href="acceptOrder" class="nav-link">承运商接单</a>
+        <a href="updateOrder" class="nav-link">承运商更改订单状态</a>
+        <a href="addCapacity" class="nav-link active">承运商增加运力</a>
+        <a href="login" class="nav-link">登出</a>
+    </div>
+</nav>
+
+<!-- 添加运力表单 -->
+<div class="main-content">
+    <h1>承运商增加运力</h1>
+    <form>
+        <div class="form-group">
+            <label for="company-id">承运商ID：</label>
+            <input type="text" id="company-id" name="company-id" required>
+        </div>
+        <div class="form-group">
+            <label for="capacity">增加运力：</label>
+            <input type="number" id="capacity" name="capacity" required>
+        </div>
+        <button type="submit">提交</button>
+    </form>
+</div>
+
+<!-- 加载JS文件 -->
+<script src="addCapacity.js"></script>
+</body>
+</html>

@@ -1,13 +1,16 @@
 package com.example.shipping.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,9 +18,22 @@ public class LoginUser implements UserDetails{
 
     private UserDto user;
 
+    @JSONField(serialize = false)
+    private List<SimpleGrantedAuthority> authorities;
+
+    public LoginUser(UserDto user){
+        this.user = user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if(authorities!=null){
+            return authorities;
+        }
+        authorities = new ArrayList<>();
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole_key());
+        authorities.add(authority);
+        return authorities;
     }
 
     @Override

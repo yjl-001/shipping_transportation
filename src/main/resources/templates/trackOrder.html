@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商户追踪订单状态</title>
+    <link rel="stylesheet" href="css/trackOrder.css">
+</head>
+<body>
+<header>
+    <!-- 顶部导航 -->
+    <nav>
+        <div class="nav-links">
+            <a href="addOrder" class="nav-link">商户添加订单</a>
+            <a href="viewOrderUser" class="nav-link">商户查看订单</a>
+            <a href="trackOrder" class="nav-link active">商户追踪订单状态</a>
+            <a href="login" class="nav-link">登出</a>
+        </div>
+    </nav>
+</header>
+<div class="main-content">
+    <h1>商户追踪订单状态</h1>
+    <form>
+        <div class="form-group">
+            <label for="order-number">订单号：</label>
+            <input type="text" id="order-number" name="order-number" required>
+        </div>
+        <button type="submit">查询</button>
+    </form>
+    <div id="order-status">
+        <h2>订单追踪结果</h2>
+        <p>订单号: 1234567890</p>
+        <p>货物描述: 电视机</p>
+        <p>出发地: 北京</p>
+        <p>目的地: 上海</p>
+        <p>发货人: 张三</p>
+        <p>运输状态: 运输中</p>
+        <p>当前位置: 上海市青浦区华新镇</p>
+        <p>预计送达时间: 2022-05-01 10:00:00</p>
+    </div>
+</div>
+<script src="js/trackOrder.js"></script>
+</body>
+</html>

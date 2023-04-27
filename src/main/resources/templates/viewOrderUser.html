@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>商户查看订单</title>
+    <link rel="stylesheet" href="css/viewOrder.css">
+</head>
+
+<!-- 顶部导航 -->
+<nav>
+    <div class="nav-links">
+        <a href="addOrder" class="nav-link">商户添加订单</a>
+        <a href="viewOrderUser" class="nav-link active">商户查看订单</a>
+        <a href="trackOrder" class="nav-link">商户追踪订单状态</a>
+        <a href="login" class="nav-link">登出</a>
+    </div>
+</nav>
+
+<!-- 查看订单表单 -->
+<div class="main-content">
+    <h1>商户查看订单</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>货物描述</th>
+            <th>出发地</th>
+            <th>目的地</th>
+            <th>运输价格</th>
+            <th>发货人</th>
+            <th>货物要求达到时间</th>
+            <th>承运商</th>
+            <th>司机</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>电视机</td>
+            <td>北京</td>
+            <td>上海</td>
+            <td>500元</td>
+            <td>张三</td>
+            <td>2022-01-01 10:00:00</td>
+            <td>顺丰快递</td>
+            <td>王五</td>
+        </tr>
+        <tr>
+            <td>冰箱</td>
+            <td>上海</td>
+            <td>广州</td>
+            <td>800元</td>
+            <td>李四</td>
+            <td>2022-01-02 10:00:00</td>
+            <td>韵达快递</td>
+            <td>赵六</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

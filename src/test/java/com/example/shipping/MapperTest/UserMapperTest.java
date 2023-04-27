@@ -15,7 +15,7 @@ public class UserMapperTest {
     @Test
     public void testUserSelect(){
         UserDto user = userMapper.getUser("yjl");
-        System.out.println(user);
+        System.out.println(user.getRole_key());
     }
 
     @Test
@@ -25,7 +25,7 @@ public class UserMapperTest {
         user.setPassword("123456");
         user.setEmail("20301083@bjtu.edu.cn");
         user.setSex("女");
-        userMapper.insert(user);
+        userMapper.insertUser(user);
         UserDto whd = userMapper.getUser("whd");
         System.out.println(whd);
     }

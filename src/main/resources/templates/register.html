@@ -1,14 +1,79 @@
 <!DOCTYPE html>
-<head>
-    <meta charset="utf-8"/>
-    <title>注册</title>
-</head>
-<body>
-    <h1>注册</h1>
-    <form action="/user/register" method="post">
-        用户名：<input type="text" name="username"><br>
-        密码：<input type="password" name="password"><br>
-        邮箱：<input type="email" name="email"><br>
-        <input type="submit" value="注册">
-    </form>
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>register</title>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+        <link rel="stylesheet" th:href="@{/css/register.css}" type="text/css"/>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="top_content">
+                <div id="header">
+                    <h1 id="title">
+                        <a class="title-s" href="#">智能公路运输调度管理系统</a>
+                    </h1>
+                    <h1 id="title-k"></h1>
+                    <h1 id="title-e">
+                        <a class="title-s" href="#">Intelligent Highway Transportation Scheduling Management System</a>
+                    </h1>
+                </div>
+                <div id="kongge"></div>
+                <div id="content">
+                    <p id="whereami"></p>
+                    <form method="post" th:action="@{/user/register}">
+                        <table border="0" cellpadding="0" cellspacing="0" class="form_table">
+                            <tr>
+                                <td align="middle" valign="middle">
+                                    账号 :
+                                </td>
+                                <td align="left" valign="middle">
+                                    <input class="inputgri" name="account" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="middle" valign="middle">
+                                    邮箱 :
+                                </td>
+                                <td align="left" valign="middle">
+                                    <input class="inputgri" name="email" type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="middle" valign="middle">
+                                    密码 :
+                                </td>
+                                <td align="left" valign="middle">
+                                    <input class="inputgri" name="password" type="password"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="middle" valign="middle">
+                                    确认密码 :
+                                </td>
+                                <td align="left" valign="middle">
+                                    <input class="inputgri" name="repassword" type="password"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="middle" align="middle">
+                                    身份 :
+                                </td>
+                                <td valign="middle" align="left">
+                                    <input type="radio" class="inputgri2" name="role" value="1" checked="checked"/>
+                                    承运商
+                                    <input type="radio" class="inputgri2" name="role" value="0"/>
+                                    商户
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="kongge2"></div>
+                        <p align="middle" valign="middle">
+                            <input class="button" type="submit" value="立即注册&raquo;"/>
+                            <a class="back" href="login">已有账号,返回登录</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

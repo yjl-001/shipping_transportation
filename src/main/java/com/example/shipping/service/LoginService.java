@@ -24,6 +24,11 @@ public class LoginService {
     @Autowired
     private RedisCache redisCache;
     
+    /**
+     * 验证登录用户的用户名和密码是否正确，如果认证通过，将信息保存至redis中
+     * @param user
+     * @return ResponseResult 包括状态码、验证信息以及认证通过后生成的jwt
+     */
     public ResponseResult login(UserDto user){
         //利用AuthenticationManager认证
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());

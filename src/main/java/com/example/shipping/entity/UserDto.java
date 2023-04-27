@@ -1,8 +1,6 @@
 package com.example.shipping.entity;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.annotation.Id;
-
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +14,5 @@ public class UserDto {
     private String password;
     private String email;
     private String sex;
+    private String role_key;
 }
