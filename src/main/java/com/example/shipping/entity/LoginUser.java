@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LoginUser implements UserDetails{
 
-    private UserDto user;
+    private UserDao user;
 
     @JSONField(serialize = false)
     private List<SimpleGrantedAuthority> authorities;
 
-    public LoginUser(UserDto user){
+    public LoginUser(UserDao user){
         this.user = user;
     }
 

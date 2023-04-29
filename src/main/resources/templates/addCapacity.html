@@ -1,39 +1,125 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>承运商增加运力</title>
-    <link rel="stylesheet" th:href="@{css/addCapacity.css}">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <link rel="stylesheet" th:href="@{/css/addCapacity.css}">
 </head>
+
 <body>
-<!-- 顶部导航 -->
-<nav>
-    <div class="nav-links">
-        <a href="viewOrderShop" class="nav-link">承运商查看订单</a>
-        <a href="acceptOrder" class="nav-link">承运商接单</a>
-        <a href="updateOrder" class="nav-link">承运商更改订单状态</a>
-        <a href="addCapacity" class="nav-link active">承运商增加运力</a>
-        <a href="login" class="nav-link">登出</a>
+    <!-- 顶部导航 -->
+    <nav>
+        <div class="nav-links">
+            <a href="viewOrderShop" class="nav-link">承运商查看订单</a>
+            <a href="acceptOrder" class="nav-link">承运商接单</a>
+            <a href="updateOrder" class="nav-link">承运商更改订单状态</a>
+            <a href="addCapacity" class="nav-link active">承运商增加运力</a>
+            <a href="personalCenterShop" class="nav-link">个人中心</a>
+            <a href="login" class="nav-link">登出</a>
+        </div>
+    </nav>
+
+    <!-- 添加运力表单 -->
+    <div class="main-content">
+        <h1>承运商增加运力</h1>
+        <div class="kongge2"></div>
+        <h2>增加车手：</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>车手名称</th>
+                    <th>手机号</th>
+                    <th>年龄/年</th>
+                    <th>驾龄/年</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input id="drivername" placeholder="张三" style="border: 0px; outline: none;"></td>
+                    <td><input id="phone" placeholder="13150504723" style="border: 0px; outline: none;"></td>
+                    <td><input id="age" placeholder="20" style="border: 0px; outline: none;"></td>
+                    <td><input id="driving_age" placeholder="5" style="border: 0px; outline: none;"></td>
+                    <td>
+                        <button onclick="driverCommit()">提交</button>
+                    </td>
+                </tr>
+                <!-- ... -->
+            </tbody>
+        </table>
+        <div class="kongge2"></div>
+        <h2>增加车辆：</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>车牌号</th>
+                    <th>车龄/年</th>
+                    <th>载重/KG</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input id="carId" placeholder="京B333" style="border: 0px; outline: none;"></td>
+                    <td><input id="car_age" placeholder="5" style="border: 0px; outline: none;"></td>
+                    <td><input id="limit_weight" placeholder="1000" style="border: 0px; outline: none;"></td>
+                    <td>
+                        <button onclick="carCommit()">提交</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</nav>
 
-<!-- 添加运力表单 -->
-<div class="main-content">
-    <h1>承运商增加运力</h1>
-    <form>
-        <div class="form-group">
-            <label for="company-id">承运商ID：</label>
-            <input type="text" id="company-id" name="company-id" required>
-        </div>
-        <div class="form-group">
-            <label for="capacity">增加运力：</label>
-            <input type="number" id="capacity" name="capacity" required>
-        </div>
-        <button type="submit">提交</button>
-    </form>
-</div>
+    <!-- 加载JS文件 -->
+    <script th:src="@{/layui/layui.js}"></script>
+    <script>
+        function driverCommit(){
+            var drivername = document.getElementById("drivername").value;
+            var phone = document.getElementById("phone").value;
+            var age = document.getElementById("age").value;
+            var driving_age = document.getElementById("driving_age").value;
+            $.ajax({
+                url: '/user/addDriver',
+                type: 'post',
+                data:{"drivername":drivername,"phone":phone,"age":age,"driving_age":driving_age},
+                dataType: 'json',
+                success:function(response){
+                    if(response.code==200)
+                        alert("添加成功");
+                    else
+                        alert("添加失败");
+                },
+                error: function () {//ajax请求失败后触发的方法
+                    alert("发送请求失败，请重试");
+                }
+            });
+        };
 
-<!-- 加载JS文件 -->
-<script src="addCapacity.js"></script>
+        function carCommit() {
+                var carId = document.getElementById("carId").value;
+                var car_age = document.getElementById("car_age").value;
+                var limit_weight = document.getElementById("limit_weight").value;
+                $.ajax({
+                    url: '/user/addCar',
+                    type: 'post',
+                    data: { "id": carId, "car_age": car_age, "limit_weight": limit_weight},
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.code == 200)
+                            alert("添加成功");
+                        else
+                            alert("添加失败");
+                    },
+                    error: function () {//ajax请求失败后触发的方法
+                        alert("发送请求失败，请重试");
+                    }
+                });
+            }
+    </script>
 </body>
+
 </html>

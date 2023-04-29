@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>商户追踪订单状态</title>
@@ -11,10 +10,11 @@
     <!-- 顶部导航 -->
     <nav>
         <div class="nav-links">
-            <a href="addOrder" class="nav-link">商户添加订单</a>
-            <a href="viewOrderUser" class="nav-link">商户查看订单</a>
-            <a href="trackOrder" class="nav-link active">商户追踪订单状态</a>
-            <a href="login" class="nav-link">登出</a>
+            <a href="addOrder.html" class="nav-link">商户添加订单</a>
+            <a href="viewOrderUser.html" class="nav-link">商户查看订单</a>
+            <a href="trackOrder.html" class="nav-link active">商户追踪订单状态</a>
+            <a href="personalCenterUser.html" class="nav-link">个人中心</a>
+            <a href="relogin.html" class="nav-link">登出</a>
         </div>
     </nav>
 </header>
@@ -36,9 +36,10 @@
         <p>发货人: 张三</p>
         <p>运输状态: 运输中</p>
         <p>当前位置: 上海市青浦区华新镇</p>
-        <p>预计送达时间: 2022-05-01 10:00:00</p>
+        <p>预计送达时间: 2022-05-01</p>
+        <button type="confirm">确认签收</button>
     </div>
 </div>
-<script src="js/trackOrder.js"></script>
+<script src="./../static/js/trackOrder.js"></script>
 </body>
 </html>

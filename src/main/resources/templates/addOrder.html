@@ -1,54 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>商户添加订单</title>
+    <title>商户添加货单</title>
     <link rel="stylesheet" th:href="@{/css/addOrder.css}">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
+
 <body>
-<!-- 顶部导航 -->
-<nav>
-    <div class="nav-links">
-        <a href="addOrder" class="nav-link active">商户添加订单</a>
-        <a href="viewOrderUser" class="nav-link">商户查看订单</a>
-        <a href="trackOrder" class="nav-link">商户追踪订单状态</a>
-        <a href="login" class="nav-link">登出</a>
+    <!-- 顶部导航 -->
+    <nav>
+        <div class="nav-links">
+            <a href="addOrder" class="nav-link active">商户添加订单</a>
+            <a href="viewOrderUser" class="nav-link">商户查看订单</a>
+            <!--        <a href="trackOrder" class="nav-link">商户追踪订单状态</a>-->
+            <a href="personalCenterUser" class="nav-link">个人中心</a>
+            <a href="relogin" class="nav-link">登出</a>
+        </div>
+    </nav>
+
+    <!-- 添加订单表单 -->
+    <div class="main-content">
+        <h1>商户添加订单</h1>
+        <div class="form">
+            <div class="form-group">
+                <label for="goods-description">货物名称：</label>
+                <input placeholder="eg.电视机" type="text" id="goods-name" name="goods_description" required>
+            </div>
+            <div class="form-group">
+                <label for="begin-addr">出发地：</label>
+                <input placeholder="eg.(xx省)xx市xx区xx街道xx号" type="text" id="begin-addr" name="begin_addr" required>
+            </div>
+            <div class="form-group">
+                <label for="dest-addr">目的地：</label>
+                <input placeholder="eg.(xx省)xx市xx区xx街道xx号" type="text" id="dest-addr" name="dest_addr" required>
+            </div>
+            <div class="form-group">
+                <label for="price">运输价格：</label>
+                <input placeholder="eg.xx,xxx(元)" type="number" id="price" name="price" required>
+            </div>
+            <div class="form-group">
+                <label for="dest-time">货物创建时间：</label>
+                <input placeholder="eg.YYYYMMDD" type="datetime-local" id="create-time" name="create_time" required>
+            </div>
+            <div class="form-group">
+                <label for="dest-time">货物要求达到时间：</label>
+                <input placeholder="eg.YYYYMMDD" type="datetime-local" id="dest-time" name="dest_time" required>
+            </div>
+            <div class="form-group">
+                <label for="goods-description">货物描述：</label>
+                <input placeholder="eg.保持干燥环境" type="text" id="goods-description" name="demands" required>
+            </div>
+            <button onclick="submit()" style="align-items: center;">提交</button>
+        </div>
     </div>
-</nav>
 
-<!-- 添加订单表单 -->
-<div class="main-content">
-    <h1>商户添加订单</h1>
-    <form th:action="@{/user/addGoods}" method="post">
-        <div class="form-group">
-            <label for="goods-description">货物描述：</label>
-            <input type="text" id="goods-description" name="goods_description" required>
-        </div>
-        <div class="form-group">
-            <label for="begin-addr">出发地：</label>
-            <input type="text" id="begin-addr" name="begin_addr" required>
-        </div>
-        <div class="form-group">
-            <label for="dest-addr">目的地：</label>
-            <input type="text" id="dest-addr" name="dest_addr" required>
-        </div>
-        <div class="form-group">
-            <label for="price">运输价格：</label>
-            <input type="number" id="price" name="price" required>
-        </div>
-        <div class="form-group">
-            <label for="dest-time">货物发出时间：</label>
-            <input type="datetime-local" id="create-time" name="create_time" required>
-        </div>
-        <div class="form-group">
-            <label for="dest-time">货物要求到达时间：</label>
-            <input type="datetime-local" id="dest-time" name="dest_time" required>
-        </div>
-        <button type="submit">提交</button>
-    </form>
-</div>
-
-<!-- 加载JS文件 -->
-<script src="addOrder.js"></script>
+    <!-- 加载JS文件 -->
+    <script th:src="@{/js/addOrder.js}"></script>
+    <script>
+        function submit(){
+            var goods_description = document.getElementById("goods-name").value;
+            var begin_addr = document.getElementById("begin-addr").value;
+            var dest_addr = document.getElementById("dest-addr").value;
+            var price = document.getElementById("price").value;
+            var create_time = document.getElementById("create-time").value;
+            var dest_time = document.getElementById("dest-time").value;
+            var demands = document.getElementById("goods-description").value;
+            $.ajax({
+                url:"/user/addGoods",
+                type:'post',
+                data:{"goods_description":goods_description,"dest_addr":dest_addr,"begin_addr":begin_addr,"price":price,"create_time":create_time,"dest_time":dest_time,"demands":demands},
+                dataType:'json',
+                success:function(response){
+                    if(response.code==200){
+                        alert("新建成功");
+                        window.location.href="/user/addOrder";
+                    }else{
+                        alert("新建失败");
+                        window.location.href = "/user/addOrder";
+                    }
+                },
+                error:function(){
+                    alert("请求发送失败，请重试");
+                }
+            })
+        }
+    </script>
 </body>
+
 </html>

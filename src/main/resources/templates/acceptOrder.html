@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>承运商接单</title>
+    <!-- <link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
+    <script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script> -->
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+    <script th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/acceptOrder.css}">
 </head>
 <body>
-
 <!-- 顶部导航 -->
 <nav>
     <div class="nav-links">
@@ -15,47 +18,131 @@
         <a href="acceptOrder" class="nav-link active">承运商接单</a>
         <a href="updateOrder" class="nav-link">承运商更改订单状态</a>
         <a href="addCapacity" class="nav-link">承运商增加运力</a>
-        <a href="login" class="nav-link">登出</a>
+        <a href="personalCenterShop" class="nav-link">个人中心</a>
+        <a href="relogin" class="nav-link">登出</a>
     </div>
 </nav>
 
 <div class="main-content">
     <h1>承运商接单</h1>
-    <table>
+    <table id="table">
         <thead>
         <tr>
-            <th>订单号</th>
-            <th>货物描述</th>
+            <th>货单号</th>
+            <th>货物名称</th>
             <th>出发地</th>
             <th>目的地</th>
             <th>发货人</th>
+            <th>运输价格</th>
             <th>送达时间</th>
+            <th>运输要求</th>
             <th>操作</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>1234567890</td>
-            <td>电视机</td>
-            <td>北京</td>
-            <td>上海</td>
-            <td>张三</td>
-            <td>2022-05-01 10:00:00</td>
-            <td><button>接单</button></td>
-        </tr>
-        <tr>
-            <td>2345678901</td>
-            <td>洗衣机</td>
-            <td>上海</td>
-            <td>广州</td>
-            <td>李四</td>
-            <td>2022-05-02 15:00:00</td>
-            <td><button>接单</button></td>
-        </tr>
-        <!-- ... -->
+        <tbody th:each="gds: ${goods}">
+            <tr>
+                <td th:text="${gds.id}"></td>
+                <td th:text="${gds.goods_description}"></td>
+                <td th:text="${gds.begin_addr}"></td>
+                <td th:text="${gds.dest_addr}"></td>
+                <td th:text="${gds.username}"></td>
+                <td th:text="${gds.price}"></td>
+                <td th:text="${gds.dest_time}"></td>
+                <td th:text="${gds.demands}"></td>
+                <td>
+                    <button class="layui-btn" test-active="test-form">接单</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
-<script src="js/acceptOrder.js"></script>
+<script>
+    layui.use(function(){
+        var layer = layui.layer, form = layui.form, util = layui.util;
+        //触发事件
+        util.event('test-active', {
+            'test-form': function(othis){
+                var goodsId = $(othis).parent().parent().find("td").eq(0).text();
+                // var goodsId = parseInt(value);
+                layer.open({
+                    type: 1
+                    ,resize: false
+                    ,shadeClose: true
+                    ,area: '350px'
+                    ,title: '分配运力'
+                    ,content: [
+                        '<ul class="layui-form layui-form-pane" style="margin: 15px;">'
+                        , '<li class="layui-form-item">'
+                        , '<label class="layui-form-label">司机</label>'
+                        , '<div class="layui-input-block">'
+                        , '<select id="drivers" name="drivers" lay-filter="xmFilter">'
+                        , '<option value=""></option>'
+                        , '</select>'
+                        , '</div>'
+                        , '</li>'
+                        , '<li class="layui-form-item">'
+                        , '<label class="layui-form-label">车辆</label>'
+                        , '<div class="layui-input-block">'
+                        , '<select id="cars" name="cars" lay-filter="xmFilter">'
+                        , '<option value=""></option>'
+                        , '</select>'
+                        , '</div>'
+                        , '</li>'
+                        , '<li class="layui-form-item" style="text-align:center;">'
+                        , '<button type="submit" lay-submit lay-filter="*" class="layui-btn">提交</button>'
+                        , '</li>'
+                        , '</ul>'].join('')
+                    ,success: function(layero, index){
+                        layero.find('.layui-layer-content').css('overflow', 'visible');
+
+                        $.ajax({
+                            url: '/user/getCarsDrivers',
+                            dataType: 'json',
+                            type: 'get',
+                            success: function (data) {
+                                //console.log(data.data['cars']);
+                                //使用循环遍历，给下拉列表赋值
+                                $.each(data.data['cars'], function (index, value) {
+                                    //console.log(value.id);
+                                    $('#cars').append(new Option(value.id, value.id));// 下拉菜单里添加元素
+                                });
+                                $.each(data.data['drivers'], function (index, value) {
+                                    //console.log(value.drivername);
+                                    $('#drivers').append(new Option(value.drivername, value.id));
+                                });
+                                form.render("select");//重新渲染 固定写法
+                            }
+                        });
+
+                        form.render().on('submit(*)', function(data){
+                            console.log(goodsId);
+                            console.log(data.field);
+                            $.ajax({
+                                url:'/user/createOrder',
+                                type:'post',
+                                headers:{ "Content-Type": "application/json" },
+                                data:JSON.stringify({"goodsId":goodsId,"driverId":data.field['drivers'],"carId":data.field['cars']}),
+                                dataType:'json',
+                                success:function(response){
+                                    if(response.code==200){
+                                        alert("接单成功");
+                                        window.location.href="/user/acceptOrder";
+                                    }
+                                    else
+                                        alert("接单失败");
+                                },
+                                error:function(){
+                                    alert("请求发送失败，请重试");
+                                }
+                            })
+                            layer.close(index); //关闭层
+                        });
+                    }
+                });
+
+            }
+        });
+    });
+</script>
 </body>
 </html>

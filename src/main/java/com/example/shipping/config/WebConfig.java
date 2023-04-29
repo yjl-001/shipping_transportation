@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer{
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //将根路径重定向到/login-view
-        registry.addViewController("/").setViewName("/login-view");
+        registry.addViewController("/").setViewName("login");
         //将login-view转到login页面
         registry.addViewController("/login-view").setViewName("login");
 

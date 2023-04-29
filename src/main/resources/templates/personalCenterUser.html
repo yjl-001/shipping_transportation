@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" th:href="@{/css/personalCenterUser.css}">
+</head>
+
+<body>
+    <!-- 顶部导航 -->
+    <nav>
+        <div class="nav-links">
+            <a href="addOrder" class="nav-link">商户添加订单</a>
+            <a href="viewOrderUser" class="nav-link">商户查看订单</a>
+            <!--            <a href="trackOrder" class="nav-link">商户追踪订单状态</a>-->
+            <a href="personalCenterUser" class="nav-link active">个人中心</a>
+            <a href="relogin" class="nav-link">登出</a>
+        </div>
+    </nav>
+
+    <!-- 添加订单表单 -->
+    <div class="main-content">
+        <!-- 此处从数据裤读出当前用户的用户名 -->
+        <h1>TCL</h1>
+        <form>
+            <div class="form-group">
+                <label th:text="'用户名：'+${user.username}"></label>
+            </div>
+            <div class="form-group">
+                <label th:text="'用户身份：'+${user.role_key}"></label>
+            </div>
+            <div class="form-group">
+                <label th:text="'用户邮箱：'+${user.email}"></label>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

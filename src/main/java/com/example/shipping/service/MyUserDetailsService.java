@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.shipping.entity.LoginUser;
-import com.example.shipping.entity.UserDto;
+import com.example.shipping.entity.UserDao;
 import com.example.shipping.mapper.UserMapper;
 
 @Service
@@ -24,7 +24,7 @@ public class MyUserDetailsService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //将来连接数据库根据账号查询用户信息和权限信息
-        UserDto userDto = userMapper.getUser(username);
+        UserDao userDto = userMapper.getUser(username);
         //当查询此用户不存在时，将抛出用户名未找到异常
         if (userDto == null) {
             throw new UsernameNotFoundException("No such user found, the user name is: "+username);

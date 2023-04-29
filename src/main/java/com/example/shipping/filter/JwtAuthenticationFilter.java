@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         //获取token
-        String token = request.getHeader("token");
+        String token = request.getHeader("cookie");
         if(!StringUtils.hasText(token)){
             filterChain.doFilter(request, response);
             return ;

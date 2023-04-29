@@ -7,7 +7,7 @@
 /* 为页面添加居中样式 */
 .main-content {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 1200px;
     padding: 24px;
 }
 
@@ -74,15 +74,11 @@ select {
     cursor: pointer;
 }
 
-button {
-    font-size: 18px;
+.layui-btn{
     background-color: #2196F3;
     color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 12px 24px;
-    cursor: pointer;
 }
+
 
 button:hover {
     background-color: #0d8bf5;

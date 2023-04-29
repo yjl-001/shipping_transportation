@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>商户查看订单</title>
-    <link rel="stylesheet" th:href="@{/css/viewOrder.css}">
+    <link rel="stylesheet" th:href="@{/css/updateOrder.css}">
     <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var result = /*[[${ result }]]*/ null;
         /*]]>*/
-        console.log(result);
-        var data = result['data'];
-        document.cookie = data['token'];
-        console.log(document.cookie);
+        if(result!=null){
+            var data = result['data'];
+            document.cookie = data['token'];
+            console.log(document.cookie);
+        }
+        //window.location.href="/user/viewOrderUser";
     </script>
 </head>
 
 <!-- 顶部导航 -->
 <nav>
     <div class="nav-links">
-        <a href="javascript:submit()" class="nav-link">商户添加订单</a>
+        <a href="addOrder" class="nav-link">商户添加订单</a>
         <a href="viewOrderUser" class="nav-link active">商户查看订单</a>
-        <a href="trackOrder" class="nav-link">商户追踪订单状态</a>
-        <a href="login" class="nav-link">登出</a>
+        <!--        <a href="trackOrder" class="nav-link">商户追踪订单状态</a>-->
+        <a href="personalCenterUser" class="nav-link">个人中心</a>
+        <a href="relogin" class="nav-link">登出</a>
     </div>
 </nav>
 
@@ -32,60 +35,67 @@
     <h1>商户查看订单</h1>
     <table>
         <thead>
-        <tr>
-            <th>货物描述</th>
-            <th>出发地</th>
-            <th>目的地</th>
-            <th>运输价格</th>
-            <th>发货人</th>
-            <th>货物要求达到时间</th>
-            <th>承运商</th>
-            <th>司机</th>
-        </tr>
+            <tr>
+                <th>订单号</th>
+                <th>货物名称</th>
+                <th>出发地</th>
+                <th>目的地</th>
+                <th>运输价格/元</th>
+                <th>承运商</th>
+                <th>到达时间</th>
+                <th>司机</th>
+                <th>车辆</th>
+                <th>当前位置</th>
+                <th>订单状态</th>
+                <th>签收</th>
+            </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>电视机</td>
-            <td>北京</td>
-            <td>上海</td>
-            <td>500元</td>
-            <td>张三</td>
-            <td>2022-01-01 10:00:00</td>
-            <td>顺丰快递</td>
-            <td>王五</td>
-        </tr>
-        <tr>
-            <td>冰箱</td>
-            <td>上海</td>
-            <td>广州</td>
-            <td>800元</td>
-            <td>李四</td>
-            <td>2022-01-02 10:00:00</td>
-            <td>韵达快递</td>
-            <td>赵六</td>
-        </tr>
+        <tbody th:each="order:${orders}">
+            <tr>
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.goods_description}"></td>
+                <td th:text="${order.begin_addr}"></td>
+                <td th:text="${order.dest_addr}"></td>
+                <td th:text="${order.price}"></td>
+                <td th:text="${order.company_name}"></td>
+                <td th:text="${order.dest_time}"></td>
+                <td th:text="${order.drivername}"></td>
+                <td th:text="${order.carId}"></td>
+                <td th:text="${order.now_addr}"></td>
+                <td th:text="${order.status}"></td>
+                <td>
+                    <button onclick="confirmSign(this)">确认签收</button>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
 
+<script src="script.js"></script>
 <script>
-    function submit() {
-        // 异步对象
-        var xhr = new XMLHttpRequest();
-        // 设置属性
-        xhr.open('get', 'http://localhost:8080/user/addOrder');
-        xhr.withCredentials = true;
-        xhr.setRequestHeader("token", document.cookie);
-        // 将数据通过send方法传递
-        xhr.send('name=fox&age=18');
-        // 发送并接受返回值
-        xhr.onreadystatechange = function () {
-            // 这步为判断服务器是否正确响应
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                window.location.href="/user/addOrderView";
+    function confirmSign(val){
+        var orderId = $(val).parent().parent().find("td").eq(0).text();
+        $.ajax({
+            url:"/user/updateOrderSign",
+            type:'post',
+            // headers: { "Content-Type": "application/json" },
+            data:{"orderId":orderId},
+            dataType:'json',
+            success:function(response){
+                if(response.code==200){
+                    alert("签收成功");
+                    window.location.href="/user/viewOrderUser";
+                }else{
+                    alert("签收成功");
+                    window.location.href = "/user/viewOrderUser";
+                }
+            },
+            error:function(){
+                alert("请求失败，请重试");
             }
-        };
-        }
+        })
+    }
 </script>
 </body>
+
 </html>

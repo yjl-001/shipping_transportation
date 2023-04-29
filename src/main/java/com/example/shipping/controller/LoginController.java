@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.example.shipping.entity.LoginUser;
-import com.example.shipping.entity.UserDto;
+import com.example.shipping.entity.UserDao;
 import com.example.shipping.service.LoginService;
 import com.example.shipping.service.UserService;
 import com.example.shipping.utils.JwtUtil;
@@ -27,8 +27,14 @@ public class LoginController {
     @Autowired
     private RedisCache redisCache;
 
+    /**
+     * Controller
+     * 验证用户登录
+     * @param user
+     * @return 验证成功后返回进入主界面，失败后在原界面
+     */
     @RequestMapping(value="/user/login",method=RequestMethod.POST)
-    public ModelAndView Login(UserDto user){
+    public ModelAndView Login(UserDao user){
        ResponseResult responseResult = loginService.login(user);
        if(responseResult.getCode()==200){
          return loginSuccess(responseResult);
@@ -37,17 +43,22 @@ public class LoginController {
        }
     }
 
+    /**
+     * Controller 用户注册
+     * @param userDto
+     * @return 注册成功后返回登录界面
+     */
     @RequestMapping(value="/user/register", method=RequestMethod.POST)
-    public ModelAndView register(UserDto userDto) {
-        service.insertUser(userDto.getUsername(), userDto.getPassword(), userDto.getEmail(),userDto.getSex());
+    public ModelAndView register(UserDao userDto) {
+        service.insertUser(userDto.getUsername(), userDto.getPassword(), userDto.getEmail(),userDto.getSex(),userDto.getRole_id());
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value="/register-view", method = RequestMethod.GET)
-    public ModelAndView registerView() {
-        return new ModelAndView("register");
-    }
-
+    /**
+     * 用户登录验证成功后，从JWT中获取用户ID,从redis中读取用户信息传递给界面，根据用户不同的身份信息返回不同的界面
+     * @param responseResult
+     * @return
+     */
     public ModelAndView loginSuccess(ResponseResult responseResult) {
         String userId;
         try {

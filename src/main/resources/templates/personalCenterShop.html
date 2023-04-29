@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" th:href="@{/css/personalCenterShop.css}">
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <nav>
+        <div class="nav-links">
+            <a href="viewOrderShop" class="nav-link">承运商查看订单</a>
+            <a href="acceptOrder" class="nav-link">承运商接单</a>
+            <a href="updateOrder" class="nav-link">承运商更改订单状态</a>
+            <a href="addCapacity" class="nav-link">承运商增加运力</a>
+            <a href="personalCenterShop" class="nav-link active">个人中心</a>
+            <a href="relogin" class="nav-link">登出</a>
+        </div>
+    </nav>
+
+    <!-- 添加订单表单 -->
+    <div class="main-content">
+        <!-- 此处从数据裤读出当前用户的用户名 -->
+        <h2 th:text="${user.username}"></h2>
+        <div class = "kongge2"></div>
+        <form>
+            <div class="form-group">
+                <label th:text="'用户身份：'+${user.role_key}"></label>
+            </div>
+            <div class="form-group">
+                <label th:text="'用户邮箱：'+${user.email}">用户邮箱：</label>
+            </div>
+        </form>
+        <div class = "kongge2"></div>
+        <h2>车手信息</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>车手名称</th>
+                <th>手机号</th>
+                <th>年龄/年</th>
+                <th>驾龄/年</th>
+                <th>工作状态</th>
+            </tr>
+            </thead>
+            <tbody th:each="driver:${drivers}">
+            <tr>
+                <td th:text="${driver.drivername}"></td>
+                <td th:text="${driver.phone}"></td>
+                <td th:text="${driver.age}"></td>
+                <td th:text="${driver.driving_age}"></td>
+                <td th:text="${driver.statue_desc}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class = "kongge2"></div>
+        <h2>车辆信息</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>车牌</th>
+                <th>车龄/年</th>
+                <th>载重/KG</th>
+                <th>工作状态</th>
+            </tr>
+            </thead>
+            <tbody th:each="car:${cars}">
+            <tr>
+                <td th:text="${car.id}"></td>
+                <td th:text="${car.car_age}"></td>
+                <td th:text="${car.limit_weight}"></td>
+                <td th:text="${car.statue}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

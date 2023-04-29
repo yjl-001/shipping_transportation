@@ -3,11 +3,20 @@ package com.example.shipping.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.shipping.entity.UserDto;
+
+import com.example.shipping.entity.LoginUser;
+import com.example.shipping.entity.UserDao;
 import com.example.shipping.mapper.UserMapper;
+import com.example.shipping.utils.GetLoginUser;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class UserService {
+    @Autowired
+    private GetLoginUser getLoginUser;
+    @Autowired
+    private HttpServletRequest request;
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -18,8 +27,17 @@ public class UserService {
      * @param username 用户名
      * @return UserDto 用户信息
      */
-    public UserDto getUser(String username){
+    public UserDao getUser(String username){
         return userMapper.getUser(username);
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public UserDao getUserByUserId(){
+        LoginUser loginUser = getLoginUser.getLoginUser(request);
+        return userMapper.getUserByUserId(loginUser.getUser().getId());
     }
 
     /**
@@ -30,12 +48,13 @@ public class UserService {
      * @param sex 性别
      * @return
      */
-    public void insertUser(String username, String password, String email, String sex){
-        UserDto user = new UserDto();
+    public void insertUser(String username, String password, String email, String sex,Integer role_id){
+        UserDao user = new UserDao();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setEmail(email);
         user.setSex(sex);
+        user.setRole_id(role_id);
         userMapper.insertUser(user);
     }
 }

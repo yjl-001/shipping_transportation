@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.example.shipping.entity.LoginUser;
-import com.example.shipping.entity.UserDto;
+import com.example.shipping.entity.UserDao;
 import com.example.shipping.utils.JwtUtil;
 import com.example.shipping.utils.RedisCache;
 import com.example.shipping.utils.ResponseResult;
@@ -29,7 +29,7 @@ public class LoginService {
      * @param user
      * @return ResponseResult 包括状态码、验证信息以及认证通过后生成的jwt
      */
-    public ResponseResult login(UserDto user){
+    public ResponseResult login(UserDao user){
         //利用AuthenticationManager认证
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);

@@ -1,6 +1,7 @@
 package com.example.shipping.entity;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -11,16 +12,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GoodsDto {
+public class GoodsDao {
     private Integer id;
     private String goods_description;
     private String begin_addr;
     private String dest_addr;
     private float price;
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date create_time;
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date dest_time;
+    private String demands;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    private LocalDateTime create_time;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
+    private LocalDateTime dest_time;
     private Integer consigner_id;
+    private String username;
 
 }

@@ -97,5 +97,9 @@ input[type="datetime-local"]:focus {
 
 button[type="submit"] {
     width: auto;
-    margin-top: 16px;
+    margin-top: 20px;
+}
+button[type="confirm"] {
+    width: auto;
+    margin-top: 20px;
 }

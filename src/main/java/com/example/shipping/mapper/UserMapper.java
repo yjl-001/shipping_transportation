@@ -1,7 +1,7 @@
 package com.example.shipping.mapper;
 
 
-import com.example.shipping.entity.UserDto;
+import com.example.shipping.entity.UserDao;
 
 import lombok.val;
 
@@ -13,40 +13,55 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
-    /*
+    /**
      * 根据用户名查询用户
+     * @param username 用户名
+     * @return UserDao
      */
     @Select("SELECT user.id,user.username,user.password,user.email,user.sex,role.role_key FROM user,role WHERE user.role_id = role.role_id and username = #{username}")
-    UserDto getUser(@Param(value = "username") String username);
+    UserDao getUser(@Param(value = "username") String username);
 
-    /*
-     * 添加一个用户
+    /**
+     * 根据用户Id查询用户
+     * @param id 用户ID
+     * @return UserDao
      */
-    @Insert("INSERT INTO user(username, password, email, sex) VALUES (#{user.username}, #{user.password}, #{user.email}, #{user.sex})")
-    void insertUser(@Param(value="user") UserDto user);
+    @Select("SELECT user.id,user.username,user.password,user.email,user.sex,role.role_key FROM user,role WHERE user.role_id = role.role_id and user.id = #{userId}")
+    UserDao getUserByUserId(@Param(value="userId")Integer id);
 
-    /*
+    /**
+     * 添加一个用户
+     * @param user 用户数据
+     */
+    @Insert("INSERT INTO user(username, password, email, sex,role_id) VALUES (#{user.username}, #{user.password}, #{user.email}, #{user.sex},#{user.role_id})")
+    void insertUser(@Param(value="user") UserDao user);
+
+    /**
      * 更新用户名
+     * @param user 新用户数据
      */
     @Update("UPDATE user set username=#{user.username} where id=#{user.id}")
-    void updataUsername(@Param(value="user") UserDto user);
+    void updataUsername(@Param(value="user") UserDao user);
 
-    /*
+    /**
      * 更新用户的性别
+     * @param user 新用户数据
      */
     @Update("UPDATE user set sex=#{user.sex} where id=#{user.id}")
-    void updateUserSex(@Param(value="user") UserDto user);
+    void updateUserSex(@Param(value="user") UserDao user);
 
-    /*
+    /**
      * 更新用户的邮件
+     * @param user 新用户数据
      */
     @Update("UPDATE user set email=#{user.email} where id=#{user.id}")
-    void updateUserEmail(@Param(value = "user") UserDto user);
+    void updateUserEmail(@Param(value = "user") UserDao user);
 
-    /*
+    /**
      * 更新用户的用户名、性别、邮件
+     * @param user 新用户数据
      */
     @Update("UPDATE user set username=#{user.username}, sex=#{user.sex},email=#{user.email} where id=#{user.id}")
-    void updateUser(@Param(value = "user") UserDto user);
+    void updateUser(@Param(value = "user") UserDao user);
 }
 

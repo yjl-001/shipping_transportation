@@ -5,6 +5,7 @@ import com.example.shipping.entity.LoginUser;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import com.example.shipping.utils.JwtUtil;
 import com.example.shipping.utils.RedisCache;
@@ -18,16 +19,17 @@ import com.alibaba.fastjson.JSON;
 /**
  * 该类用于从前端发送至后端的request中解析token获得当前用户信息
  */
+@Component
 public class GetLoginUser {
     @Autowired
-    private static RedisCache redisCache;
+    private RedisCache redisCache;
 
     /**
      * 从前端发送至后端的request中解析token获得当前用户信息
      * @param request
      * @return LoginUser 封装了用户信息
      */
-    public static LoginUser getLoginUser(HttpServletRequest request){
+    public LoginUser getLoginUser(HttpServletRequest request){
         // 获取token
         String token = request.getHeader("cookie");
         if (!StringUtils.hasText(token)) {
