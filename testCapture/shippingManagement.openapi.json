@@ -1,0 +1,618 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "shippingManagement",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "UserController"
+    },
+    {
+      "name": "CarsDriverController"
+    },
+    {
+      "name": "GoodsController"
+    },
+    {
+      "name": "OrderController"
+    }
+  ],
+  "paths": {
+    "/user/login": {
+      "post": {
+        "summary": "用户登录",
+        "x-apifox-folder": "UserController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "UserController"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "yjl"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "yjl110224"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-74386424-run"
+      }
+    },
+    "/user/register": {
+      "post": {
+        "summary": "用户注册",
+        "x-apifox-folder": "UserController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "UserController"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "wxf",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "888888",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "20301146@bjtu.edu.cn",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "role_id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "0",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-78949612-run"
+      }
+    },
+    "/user/getCarsDrivers": {
+      "get": {
+        "summary": "获得公司名下所有车辆和司机",
+        "x-apifox-folder": "CarsDriverController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "CarsDriverController"
+        ],
+        "parameters": [
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNTJlNTIzNDNjNWY0ZDY1YWU4ZjIzOGRhMmE5ODc3MiIsInN1YiI6IjIiLCJpc3MiOiJ5amwiLCJpYXQiOjE2ODI3NzIxODgsImV4cCI6MTY4Mjc3NTc4OH0.m7q9Qm4JhJsc_3CEBU9gRzi_YQjzxG2ZfB72OTRMtV4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-78950081-run"
+      }
+    },
+    "/user/addDriver": {
+      "post": {
+        "summary": "新增一位司机",
+        "x-apifox-folder": "CarsDriverController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "CarsDriverController"
+        ],
+        "parameters": [
+          {
+            "name": "drivername",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "张三",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "18732776482",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "age",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "30",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "driving_age",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "10",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNTJlNTIzNDNjNWY0ZDY1YWU4ZjIzOGRhMmE5ODc3MiIsInN1YiI6IjIiLCJpc3MiOiJ5amwiLCJpYXQiOjE2ODI3NzIxODgsImV4cCI6MTY4Mjc3NTc4OH0.m7q9Qm4JhJsc_3CEBU9gRzi_YQjzxG2ZfB72OTRMtV4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-78950112-run"
+      }
+    },
+    "/user/addCar": {
+      "post": {
+        "summary": "新增加一辆车",
+        "x-apifox-folder": "CarsDriverController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "CarsDriverController"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "京C555",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "car_age",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "10",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit_weight",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "500",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNTJlNTIzNDNjNWY0ZDY1YWU4ZjIzOGRhMmE5ODc3MiIsInN1YiI6IjIiLCJpc3MiOiJ5amwiLCJpYXQiOjE2ODI3NzIxODgsImV4cCI6MTY4Mjc3NTc4OH0.m7q9Qm4JhJsc_3CEBU9gRzi_YQjzxG2ZfB72OTRMtV4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-78950146-run"
+      }
+    },
+    "/user/createOrder": {
+      "post": {
+        "summary": "承运商接单创建订单",
+        "x-apifox-folder": "OrderController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "OrderController"
+        ],
+        "parameters": [
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNTJlNTIzNDNjNWY0ZDY1YWU4ZjIzOGRhMmE5ODc3MiIsInN1YiI6IjIiLCJpc3MiOiJ5amwiLCJpYXQiOjE2ODI3NzIxODgsImV4cCI6MTY4Mjc3NTc4OH0.m7q9Qm4JhJsc_3CEBU9gRzi_YQjzxG2ZfB72OTRMtV4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {},
+                "x-apifox-orders": [
+                  "01GZ6HQNX5P1T7Z5A23F13RF12"
+                ],
+                "required": [
+                  "01GZ6HQNX5P1T7Z5A23F13RF12"
+                ],
+                "x-apifox-ignore-properties": []
+              },
+              "example": {
+                "goodsId": "3",
+                "driverId": "2",
+                "carId": "京B333"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-78950183-run"
+      }
+    },
+    "/user/updateOrder": {
+      "post": {
+        "summary": "更新订单状态和所在地址",
+        "x-apifox-folder": "OrderController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "OrderController"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "3",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "运输中",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "now_addr",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "南京",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkNTJlNTIzNDNjNWY0ZDY1YWU4ZjIzOGRhMmE5ODc3MiIsInN1YiI6IjIiLCJpc3MiOiJ5amwiLCJpYXQiOjE2ODI3NzIxODgsImV4cCI6MTY4Mjc3NTc4OH0.m7q9Qm4JhJsc_3CEBU9gRzi_YQjzxG2ZfB72OTRMtV4",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-78950336-run"
+      }
+    },
+    "/user/updateOrderSign": {
+      "post": {
+        "summary": "更新订单状态为已签收",
+        "x-apifox-folder": "OrderController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "OrderController"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "3",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Cookie",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "example": "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIzYzNlMzBlYjA0MzE0YWY3YjQ2ZjA2YTc1ZGZkMDkzYiIsInN1YiI6IjEiLCJpc3MiOiJ5amwiLCJpYXQiOjE2ODI3NzM4NjIsImV4cCI6MTY4Mjc3NzQ2Mn0.mZMcskX5T0oqQscidp0lXCA2U6j22QQCwFIr5rIqDFQ",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-78950373-run"
+      }
+    },
+    "/user/addGoods": {
+      "post": {
+        "summary": "商家新建商品",
+        "x-apifox-folder": "GoodsController",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "GoodsController"
+        ],
+        "parameters": [
+          {
+            "name": "goods_description",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "水杯",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dest_addr",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "南京",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "189",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dest_time",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "2023-5-2 17:00",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "begin_addr",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "北京",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "create_time",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "2023-4-29 19:00",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "demands",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "example": "无",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "x-apifox-ignore-properties": [],
+                  "x-apifox-orders": []
+                }
+              }
+            }
+          }
+        },
+        "x-run-in-apifox": "https://www.apifox.cn/web/project/2565994/apis/api-78950898-run"
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  },
+  "servers": []
+}
