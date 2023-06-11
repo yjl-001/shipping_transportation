@@ -5,17 +5,18 @@
     <title>承运商查看订单</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
     <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
     <link rel="stylesheet" th:href="@{/css/viewOrder.css}">
     <script th:inline="javascript">
         /*<![CDATA[*/
         var result = /*[[${ result }]]*/ null;
         /*]]>*/
+        console.log(result);
         if(result != null){
             var data = result['data'];
-            document.cookie = data['token'];
-            console.log(document.cookie);
+            document.token = data['token'];
+            console.log(document.token);
         }
-        // window.location.href = "/user/viewOrderShop";
     </script>
 </head>
 
@@ -23,12 +24,12 @@
 <!-- 顶部导航 -->
 <nav>
     <div class="nav-links">
-        <a href="viewOrderShop" class="nav-link active">承运商查看订单</a>
-        <a href="acceptOrder" class="nav-link">承运商接单</a>
-        <a href="updateOrder" class="nav-link">承运商更改订单状态</a>
-        <a href="addCapacity" class="nav-link">承运商增加运力</a>
-        <a href="personalCenterShop" class="nav-link">个人中心</a>
-        <a href="relogin" class="nav-link">登出</a>
+        <a th:href="@{/company-order-view}" class="nav-link active">承运商查看订单</a>
+        <a th:href="@{/company-goods-view}" class="nav-link">承运商接单</a>
+        <a th:href="@{/company-orderstatus-view}" class="nav-link">承运商更改订单状态</a>
+        <a th:href="@{/company-transubmit-view}" class="nav-link">承运商增加运力</a>
+        <a th:href="@{/company-info-view}" class="nav-link">个人中心</a>
+        <a th:href="@{/relogin-view}" class="nav-link">登出</a>
     </div>
 </nav>
 
@@ -51,7 +52,10 @@
             <th>订单状态</th>
         </tr>
         </thead>
-        <tbody th:each="order:${orders}">
+        <tbody>
+
+        </tbody>
+        <!-- <tbody th:each="order:${data.orders}">
         <tr>
             <td th:text="${order.id}"></td>
             <td th:text="${order.goods_description}"></td>
@@ -65,9 +69,35 @@
             <td th:text="${order.now_addr}"></td>
             <td th:text="${order.status}"></td>
         </tr>
-        </tbody>
+        </tbody> -->
     </table>
 </div>
+<script>
+    $.ajax({
+        url: "/company/orders",
+        type: 'get',
+        headers: { 'token': document.token },
+        success: function (responce) {
+            console.log(responce.data.orders);
+            var orders = responce.data.orders;
+            var tbody = document.querySelector("tbody");
+            for (var i = 0; i < orders.length; i++) {
+                // 1.创建tr
+                var tr = document.createElement("tr");
+                tbody.appendChild(tr);
+                // 2.创建tr内的td，循环一个tr内的所有td
+                for (var k in orders[i]) {
+                    // 创建单元格
+                    var td = document.createElement("td")
+                    // 把对象的属性值复制给对象
+                    td.innerHTML = orders[i][k];
+                    tr.appendChild(td);
+                }
+                tr.appendChild(td);
+            }
+        }
+    })
+</script>
 <script th:src="@{/layui/layui.js}"></script>
 </body>
 </html>

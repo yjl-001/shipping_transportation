@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <title>个人中心</title>
     <link rel="stylesheet" th:href="@{/css/personalCenterShop.css}">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script th:src="@{/js/viewRequest.js}"></script>
 </head>
 <body>
     <!-- 顶部导航 -->
     <nav>
         <div class="nav-links">
-            <a href="viewOrderShop" class="nav-link">承运商查看订单</a>
-            <a href="acceptOrder" class="nav-link">承运商接单</a>
-            <a href="updateOrder" class="nav-link">承运商更改订单状态</a>
-            <a href="addCapacity" class="nav-link">承运商增加运力</a>
-            <a href="personalCenterShop" class="nav-link active">个人中心</a>
-            <a href="relogin" class="nav-link">登出</a>
+            <a th:href="@{/company-order-view}" class="nav-link active">承运商查看订单</a>
+            <a th:href="@{/company-goods-view}" class="nav-link">承运商接单</a>
+            <a th:href="@{/company-orderstatus-view}" class="nav-link">承运商更改订单状态</a>
+            <a th:href="@{/company-transubmit-view}" class="nav-link">承运商增加运力</a>
+            <a th:href="@{/company-info-view}" class="nav-link">个人中心</a>
+            <a th:href="@{/relogin-view}" class="nav-link">登出</a>
         </div>
     </nav>
 

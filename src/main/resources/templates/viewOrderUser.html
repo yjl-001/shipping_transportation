@@ -6,14 +6,15 @@
     <title>商户查看订单</title>
     <link rel="stylesheet" th:href="@{/css/updateOrder.css}">
     <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script th:src="@{/js/viewRequest.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var result = /*[[${ result }]]*/ null;
         /*]]>*/
         if(result!=null){
             var data = result['data'];
-            document.cookie = data['token'];
-            console.log(document.cookie);
+            document.token = data['token'];
+            console.log(document.token);
         }
         //window.location.href="/user/viewOrderUser";
     </script>
@@ -22,11 +23,11 @@
 <!-- 顶部导航 -->
 <nav>
     <div class="nav-links">
-        <a href="addOrder" class="nav-link">商户添加订单</a>
-        <a href="viewOrderUser" class="nav-link active">商户查看订单</a>
+        <a href="business-goodsubmit-view" class="nav-link active">商户添加商品</a>
+        <a href="business-order-view" class="nav-link">商户查看订单</a>
         <!--        <a href="trackOrder" class="nav-link">商户追踪订单状态</a>-->
-        <a href="personalCenterUser" class="nav-link">个人中心</a>
-        <a href="relogin" class="nav-link">登出</a>
+        <a href="business-infor-view" class="nav-link">个人中心</a>
+        <a href="relogin-view" class="nav-link">登出</a>
     </div>
 </nav>
 

@@ -33,7 +33,7 @@ public class LoginController {
      * @param user
      * @return 验证成功后返回进入主界面，失败后在原界面
      */
-    @RequestMapping(value="/user/login",method=RequestMethod.POST)
+    @RequestMapping(value="/index",method=RequestMethod.POST)
     public ModelAndView Login(UserDao user){
        ResponseResult responseResult = loginService.login(user);
        if(responseResult.getCode()==200){
@@ -48,7 +48,7 @@ public class LoginController {
      * @param userDto
      * @return 注册成功后返回登录界面
      */
-    @RequestMapping(value="/user/register", method=RequestMethod.POST)
+    @RequestMapping(value="/user", method=RequestMethod.POST)
     public ModelAndView register(UserDao userDto) {
         service.insertUser(userDto.getUsername(), userDto.getPassword(), userDto.getEmail(),userDto.getSex(),userDto.getRole_id());
         return new ModelAndView("login");

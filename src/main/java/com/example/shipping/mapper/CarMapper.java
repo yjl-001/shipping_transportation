@@ -1,14 +1,11 @@
 package com.example.shipping.mapper;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 import com.example.shipping.entity.CarDao;
-
 import io.lettuce.core.dynamic.annotation.Param;
 
 @Mapper

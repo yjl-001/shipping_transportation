@@ -1,5 +1,6 @@
 package com.example.shipping.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.shipping.service.OrderService;
 import com.example.shipping.utils.ResponseResult;
 
+import jakarta.websocket.server.PathParam;
+
 @RestController
 public class OrderController {
     @Autowired
@@ -23,7 +26,7 @@ public class OrderController {
      * @param order
      * @return
      */
-    @RequestMapping(value = "/user/createOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/order", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult createOrder(@RequestBody Map<String,String> order){
         String goodsId = order.get("goodsId");
@@ -40,9 +43,9 @@ public class OrderController {
      * @param now_addr
      * @return
      */
-    @RequestMapping(value = "/user/updateOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/order/{orderId}/{status}/{now_addr}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('company')")
-    public ResponseResult updateOrder(@RequestParam(name = "orderId") String orderId,@RequestParam(name = "status") String status, @RequestParam(name = "now_addr") String now_addr){
+    public ResponseResult updateOrder(@PathParam(value = "orderId") String orderId,@PathParam(value = "status") String status, @PathParam(value = "now_addr") String now_addr){
         orderService.updateOrder(orderId,status,now_addr);
         return new ResponseResult<>(200, "success", null);
     }
@@ -52,10 +55,26 @@ public class OrderController {
      * @param orderId
      * @return
      */
-    @RequestMapping(value = "/user/updateOrderSign", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/order/{orderId}/statue/signed", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('consigner')")
-    public ResponseResult updateOrderSign(@RequestParam(name = "orderId")String orderId){
+    public ResponseResult updateOrderSign(@PathParam(value = "orderId")String orderId){
         orderService.updateOrderSign(orderId);
         return new ResponseResult<>(200, "success", null);
+    }
+
+    @RequestMapping(value = "/consigner/orders",method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('consigner')")
+    public ResponseResult getOrders(){
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("orders", orderService.getOrdersByUser());
+        return new ResponseResult<Map<String,Object>>(200, "success", attributes);
+    }
+
+    @RequestMapping(value = "/company/orders", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('company')")
+    public ResponseResult getShopOrder() {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("orders", orderService.getOrdersByShop());
+        return new ResponseResult<Map<String,Object>>(200, "success", attributes);
     }
 }

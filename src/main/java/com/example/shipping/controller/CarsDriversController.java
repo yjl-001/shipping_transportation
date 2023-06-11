@@ -3,13 +3,11 @@ package com.example.shipping.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.shipping.entity.CarDao;
 import com.example.shipping.entity.DriverDao;
 import com.example.shipping.service.CarService;
@@ -27,7 +25,7 @@ public class CarsDriversController {
      * Controller 获得公司名下所有的车辆和司机
      * @return RespnseResult
      */
-    @RequestMapping(value = "/user/getCarsDrivers", method = RequestMethod.GET)
+    @RequestMapping(value = "/company/cars-drivers", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult getCarsDrivers(){
         Map<String, Object> map = new HashMap<>();
@@ -43,7 +41,7 @@ public class CarsDriversController {
      * @param driverDao 前端传给后端的数据
      * @return ResponseResult
      */
-    @RequestMapping(value = "/user/addDriver", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/driver", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult addDriver(DriverDao driverDao){
         driverService.insertDriver(driverDao);
@@ -55,7 +53,7 @@ public class CarsDriversController {
      * @param carDao 前端传给后端的数据
      * @return ResponseResult
      */
-    @RequestMapping(value = "/user/addCar", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/car", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult addCar(CarDao carDao) {
         carService.insertCar(carDao);

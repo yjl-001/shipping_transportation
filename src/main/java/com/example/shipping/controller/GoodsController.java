@@ -1,5 +1,8 @@
 package com.example.shipping.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -23,9 +26,17 @@ public class GoodsController {
      * @param goodsDto
      * @return ResponseResult
      */
-    @RequestMapping(value = "/user/addGoods", method = RequestMethod.POST)
+    @RequestMapping(value = "/consigner/goods", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('consigner')")
     public ResponseResult createGoods(GoodsDao goodsDto){
         return goodsService.createGoods(goodsDto);
+    }
+
+    @RequestMapping(value = "/company/goods", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('company')")
+    public ResponseResult getShopGoods() {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("goods", goodsService.getAllUntranspotedGoods());
+        return new ResponseResult<Map<String,Object>>(200, "success", attributes);
     }
 }

@@ -31,7 +31,7 @@ public class GetLoginUser {
      */
     public LoginUser getLoginUser(HttpServletRequest request){
         // 获取token
-        String token = request.getHeader("cookie");
+        String token = request.getHeader("token");
         if (!StringUtils.hasText(token)) {
             return null;
         }
