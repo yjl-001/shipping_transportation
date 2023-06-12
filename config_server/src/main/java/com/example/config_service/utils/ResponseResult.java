@@ -1,4 +1,4 @@
-package com.example.utils_service.utils;
+package com.example.config_service.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

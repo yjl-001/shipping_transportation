@@ -71,7 +71,7 @@
         </dependency>
         <dependency>
             <groupId>com.example</groupId>
-            <artifactId>utils_service</artifactId>
+            <artifactId>config_server</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

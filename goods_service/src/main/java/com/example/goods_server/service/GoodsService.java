@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.example.goods_server.mapper.GoodsMapper;
 import com.example.goods_server.dao.GoodsDao;
-import com.example.utils_service.utils.ResponseResult;
+import com.example.config_service.utils.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
