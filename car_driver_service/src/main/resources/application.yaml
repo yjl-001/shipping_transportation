@@ -1,17 +1,16 @@
-server:
-  port: 8086
-
 spring:
   application:
-    name: car-driver-service
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/shippingmanagement?characterEncoding=utf-8&serverTimezone=UTC
-    username: root
-    password: 123456
+    name: car-drive-service
+  config:
+    import:
+      optional:
+        configserver:
+          https://github:com/yjl-001/shipping_transportation/tree/homework3/configurations
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8080/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+
 
