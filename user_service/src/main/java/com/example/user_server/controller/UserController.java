@@ -1,26 +1,28 @@
 package com.example.user_server.controller;
 
+import com.example.car_driver_service.service.CarService;
+import com.example.car_driver_service.service.DriverService;
 import com.example.user_server.dao.UserDao;
-import com.example.user_server.service.CarDriverService;
 import com.example.user_server.service.UserService;
-import com.example.user_server.utils.ResponseResult;
+import com.example.utils_service.utils.ResponseResult;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 public class UserController {
     @Autowired
     private UserService userService;
-//    @Autowired
-//    private CarDriverService carDriverService;
+    @Autowired
+    private CarService carService;
+    @Autowired
+    private DriverService driverService;
 
     @RequestMapping(value = "/consigner/{id}/info", method = RequestMethod.GET)
     public ResponseResult getConsignerInfo(@PathParam("id")Integer userId) {
@@ -29,14 +31,14 @@ public class UserController {
         return new ResponseResult<Map<String,Object>>(200, "success", attributes);
     }
 
-//    @RequestMapping(value = "/company/{id}/info", method = RequestMethod.GET)
-//    public ResponseResult getCompanyInfo(@PathParam("id")Integer userId) {
-//        Map<String, Object> attributes = new HashMap<>();
-//        attributes.put("user", userService.getUserByUserId(userId));
-//        attributes.put("cars", ((Map<String,Object>)(carDriverService.getCarsDrivers(userId).getData())).get("cars"));
-//        attributes.put("drivers", ((Map<String,Object>)(carDriverService.getCarsDrivers(userId).getData())).get("drivers"));
-//        return new ResponseResult<Map<String,Object>>(200, "success", attributes);
-//    }
+    @RequestMapping(value = "/company/{id}/info", method = RequestMethod.GET)
+    public ResponseResult getCompanyInfo(@PathParam("id")Integer userId) {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("user", userService.getUserByUserId(userId));
+        attributes.put("cars", carService.getAllCarsByCompanyId(userId));
+        attributes.put("drivers", driverService.getAllDriversByCompayId(userId));
+        return new ResponseResult<Map<String,Object>>(200, "success", attributes);
+    }
 
     /**
      * Controller 用户注册

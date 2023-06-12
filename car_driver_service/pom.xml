@@ -58,6 +58,12 @@
             <version>3.0.2</version>
         </dependency>
         <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>utils_service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>io.lettuce</groupId>
             <artifactId>lettuce-core</artifactId>
         </dependency>

@@ -1,4 +1,4 @@
-package com.example.user_server.utils;
+package com.example.utils_service.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

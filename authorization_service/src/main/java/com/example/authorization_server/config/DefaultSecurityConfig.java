@@ -58,18 +58,17 @@ public class DefaultSecurityConfig {
     // @formatter:off
 
 
-//    public UserDetailsService users() {
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("user1")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//        return new InMemoryUserDetailsManager(user);
-//    }
+    public UserDetailsService users() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user1")
+                .password("password")
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
+    }
     // @formatter:on
-    // TODO 自己定义UserDetailsService
-    @Autowired
-    private MyUserDetailsService userDetailsService;
+//    @Autowired
+//    private MyUserDetailsService userDetailsService;
 
     @Bean
     public SessionRegistry sessionRegistry() {

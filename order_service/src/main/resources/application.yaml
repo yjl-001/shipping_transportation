@@ -1,9 +1,9 @@
 server:
-  port: 8085
+  port: 8087
 
 spring:
   application:
-    name: goods
+    name: order
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/shippingmanagement?characterEncoding=utf-8&serverTimezone=UTC

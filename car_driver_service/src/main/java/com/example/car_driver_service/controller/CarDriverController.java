@@ -4,7 +4,7 @@ import com.example.car_driver_service.dao.CarDao;
 import com.example.car_driver_service.dao.DriverDao;
 import com.example.car_driver_service.service.CarService;
 import com.example.car_driver_service.service.DriverService;
-import com.example.car_driver_service.utils.ResponseResult;
+import com.example.utils_service.utils.ResponseResult;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
