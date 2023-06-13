@@ -19,3 +19,13 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8080/eureka/
+
+# ????
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+# ? traceId ? spanId ? log ??
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:test},%X{traceId:-},%X{spanId:-}]'
