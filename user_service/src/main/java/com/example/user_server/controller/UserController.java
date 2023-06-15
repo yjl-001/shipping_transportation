@@ -7,9 +7,7 @@ import com.example.user_server.service.UserService;
 import com.example.config_service.utils.ResponseResult;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.HashMap;
@@ -31,6 +29,11 @@ public class UserController {
         attributes.put("user", userService.getUserByUserId(userId));
         return new ResponseResult<Map<String,Object>>(200, "success", attributes);
     }
+    @GetMapping("/hello")
+    public String hello(){
+        System.out.println("hhhh");
+        return "hello";
+    }
 
     @RequestMapping(value = "/company/{id}/info", method = RequestMethod.GET)
     public ResponseResult getCompanyInfo(@PathParam("id")Integer userId) {
@@ -46,8 +49,8 @@ public class UserController {
      * @param userDto
      * @return 注册成功后返回登录界面
      */
-    @RequestMapping(value="/user", method=RequestMethod.POST)
-    public ResponseResult register(UserDao userDto) {
+    @RequestMapping(value="/register", method=RequestMethod.POST)
+    public ResponseResult register(@RequestBody UserDao userDto) {
         userService.insertUser(userDto.getUsername(), userDto.getPassword(), userDto.getEmail(),userDto.getSex(),userDto.getRole_id());
         return new ResponseResult<UserDao>(200, "success", userDto);
     }
