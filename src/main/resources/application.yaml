@@ -28,5 +28,5 @@ server:
 
 springdoc:
   api-docs:
-    path: "/api-docs"
+    path: /api-docs
 

@@ -48,18 +48,19 @@ public class WebSecurityConfig{
             .requestMatchers("/css/**").permitAll()
             .requestMatchers("/js/**").permitAll()
             .requestMatchers("/**-view").permitAll()
-            //.requestMatchers("/login-view").anonymous()
+            .requestMatchers("/api-docs").permitAll()
+            .requestMatchers("/api-docs.yaml").permitAll()
+            .requestMatchers("/swagger-ui.html").permitAll()
             .requestMatchers("/index").anonymous()
-            //.requestMatchers("/register-view").anonymous()
             .requestMatchers("/user").anonymous()
             //其它的请求都需要登录后才能访问
             .anyRequest().authenticated()
-        .and()
-        //允许表单登录
-        .formLogin()
-            //登录页面路径
-            .loginPage("/login-view")
-            .loginProcessingUrl("/login")
+        // .and()
+        // //允许表单登录
+        // .formLogin()
+        //     //登录页面路径
+        //     .loginPage("/login-view")
+        //     .loginProcessingUrl("/login")
         .and()
         .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

@@ -1,5 +1,6 @@
 package com.example.shipping.controller;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,12 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.shipping.service.OrderService;
 import com.example.shipping.utils.ResponseResult;
 
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import jakarta.websocket.server.PathParam;
 
 @RestController
 public class OrderController {
     @Autowired
     private OrderService orderService;
+
+    // 添加Bucket4j限流
+    private final Bucket bucket;
+
+    public OrderController() {
+        long num = 20; // 最大限流数
+        Bandwidth limit = Bandwidth.classic(20, Refill.greedy(num, Duration.ofMinutes(1)));
+        this.bucket = Bucket.builder()
+            .addLimit(limit)
+            .build();
+    }
     
     /**
      * Controller 承运商接单，创建订单
@@ -29,11 +44,15 @@ public class OrderController {
     @RequestMapping(value = "/company/order", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult createOrder(@RequestBody Map<String,String> order){
-        String goodsId = order.get("goodsId");
-        String driverId = order.get("driverId");
-        String carId = order.get("carId");
-        orderService.createOrder(goodsId, driverId, carId);
-        return new ResponseResult<>(200, "success", null);
+        if(bucket.tryConsume(1)){
+            String goodsId = order.get("goodsId");
+            String driverId = order.get("driverId");
+            String carId = order.get("carId");
+            orderService.createOrder(goodsId, driverId, carId);
+            return new ResponseResult<>(200, "success", null);
+        }else{
+            return new ResponseResult<>(505,"too many request",null);
+        }
     }
 
     /**
@@ -46,8 +65,12 @@ public class OrderController {
     @RequestMapping(value = "/company/order/{orderId}/{status}/{now_addr}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult updateOrder(@PathParam(value = "orderId") String orderId,@PathParam(value = "status") String status, @PathParam(value = "now_addr") String now_addr){
-        orderService.updateOrder(orderId,status,now_addr);
-        return new ResponseResult<>(200, "success", null);
+        if(bucket.tryConsume(1)){
+            orderService.updateOrder(orderId,status,now_addr);
+            return new ResponseResult<>(200, "success", null);
+        }else{
+            return new ResponseResult<>(505,"too many request",null);
+        }
     }
 
     /**
@@ -58,23 +81,35 @@ public class OrderController {
     @RequestMapping(value = "/company/order/{orderId}/statue/signed", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('consigner')")
     public ResponseResult updateOrderSign(@PathParam(value = "orderId")String orderId){
-        orderService.updateOrderSign(orderId);
-        return new ResponseResult<>(200, "success", null);
+        if(bucket.tryConsume(1)){
+            orderService.updateOrderSign(orderId);
+            return new ResponseResult<>(200, "success", null);
+        }else{
+            return new ResponseResult<>(505,"too many request",null);
+        }
     }
 
     @RequestMapping(value = "/consigner/orders",method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('consigner')")
     public ResponseResult getOrders(){
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("orders", orderService.getOrdersByUser());
-        return new ResponseResult<Map<String,Object>>(200, "success", attributes);
+        if(bucket.tryConsume(1)){
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("orders", orderService.getOrdersByUser());
+            return new ResponseResult<Map<String,Object>>(200, "success", attributes);
+        }else{
+            return new ResponseResult<>(505,"too many request",null);
+        }
     }
 
     @RequestMapping(value = "/company/orders", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult getShopOrder() {
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put("orders", orderService.getOrdersByShop());
-        return new ResponseResult<Map<String,Object>>(200, "success", attributes);
+        if(bucket.tryConsume(1)){
+            Map<String, Object> attributes = new HashMap<>();
+            attributes.put("orders", orderService.getOrdersByShop());
+            return new ResponseResult<Map<String,Object>>(200, "success", attributes);
+        }else{
+            return new ResponseResult<>(505,"too many request",null);
+        }
     }
 }
