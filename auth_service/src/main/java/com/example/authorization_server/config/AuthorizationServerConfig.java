@@ -43,12 +43,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
-/**
- * @author Joe Grandja
- * @author Daniel Garnier-Moiroux
- * @author Steve Riesenberg
- * @since 1.1
- */
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 	private static final String CUSTOM_CONSENT_PAGE_URI = "/oauth2/consent";
@@ -61,22 +55,6 @@ public class AuthorizationServerConfig {
 
 		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
-		/*
-		 * This sample demonstrates the use of a public client that does not
-		 * store credentials or authenticate with the authorization server.
-		 *
-		 * The following components show how to customize the authorization
-		 * server to allow for device clients to perform requests to the
-		 * OAuth 2.0 Device Authorization Endpoint and Token Endpoint without
-		 * a clientId/clientSecret.
-		 *
-		 * CAUTION: These endpoints will not require any authentication, and can
-		 * be accessed by any client that has a valid clientId.
-		 *
-		 * It is therefore RECOMMENDED to carefully monitor the use of these
-		 * endpoints and employ any additional protections as needed, which is
-		 * outside the scope of this sample.
-		 */
 		DeviceClientAuthenticationConverter deviceClientAuthenticationConverter =
 				new DeviceClientAuthenticationConverter(
 						authorizationServerSettings.getDeviceAuthorizationEndpoint());
@@ -125,13 +103,11 @@ public class AuthorizationServerConfig {
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
 				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-				.redirectUri("http://127.0.0.1:8080/authorized")
-				.postLogoutRedirectUri("http://127.0.0.1:8080/logged-out")
+				.redirectUri("http://127.0.0.1:8083/user/login")
 				.scope(OidcScopes.OPENID)
 				.scope(OidcScopes.PROFILE)
-				.scope("message.read")
-				.scope("message.write")
+				.scope("company")
+				.scope("consigner")
 				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
 				.build();
 
@@ -140,8 +116,8 @@ public class AuthorizationServerConfig {
 				.clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
 				.authorizationGrantType(AuthorizationGrantType.DEVICE_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.scope("message.read")
-				.scope("message.write")
+				.scope("company")
+				.scope("consigner")
 				.build();
 
 		// Save registered client's in db as if in-memory

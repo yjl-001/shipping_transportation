@@ -1,4 +1,4 @@
-package com.example.user_server.config;
+package com.example.car_driver_service.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 @EnableWebSecurity
 @Configuration(proxyBeanMethods = false)
 public class ResourceConfig {
@@ -18,7 +19,6 @@ public class ResourceConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/company/**").hasAuthority("SCOPE_company")
                 .requestMatchers("/consigner").hasAuthority("SCOPE_consigner")
-                .requestMatchers("/register").anonymous()
                 .and()
                 .oauth2ResourceServer()
                 .jwt();

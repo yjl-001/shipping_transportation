@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
     @Autowired
     private HttpServletRequest request;
     @Autowired

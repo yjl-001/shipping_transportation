@@ -23,11 +23,11 @@ spring:
             user-name-attribute: email
           github:
             user-name-attribute: login
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/shippingmanagement?characterEncoding=utf-8&serverTimezone=UTC
-#    username: root
-#    password: 123456
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shippingmanagement?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
 
 logging:
   level:

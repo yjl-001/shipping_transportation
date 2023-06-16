@@ -4,15 +4,13 @@ import com.example.car_driver_service.service.CarService;
 import com.example.car_driver_service.service.DriverService;
 import com.example.user_server.dao.UserDao;
 import com.example.user_server.service.UserService;
-import com.example.config_service.utils.ResponseResult;
-import jakarta.websocket.server.PathParam;
+import com.example.config_service.utils.ResponseResult;;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @RestController
 public class UserController {
@@ -24,19 +22,21 @@ public class UserController {
     private DriverService driverService;
 
     @RequestMapping(value = "/consigner/{id}/info", method = RequestMethod.GET)
-    public ResponseResult getConsignerInfo(@PathParam("id")Integer userId) {
+    public ResponseResult getConsignerInfo(@PathVariable("id")Integer userId) {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("user", userService.getUserByUserId(userId));
         return new ResponseResult<Map<String,Object>>(200, "success", attributes);
     }
-    @GetMapping("/hello")
+    @RequestMapping(value = "/hello",method = RequestMethod.GET)
+    @ResponseBody
     public String hello(){
         System.out.println("hhhh");
         return "hello";
     }
 
     @RequestMapping(value = "/company/{id}/info", method = RequestMethod.GET)
-    public ResponseResult getCompanyInfo(@PathParam("id")Integer userId) {
+    @ResponseBody
+    public ResponseResult getCompanyInfo(@PathVariable("id")Integer userId) {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("user", userService.getUserByUserId(userId));
         attributes.put("cars", carService.getAllCarsByCompanyId(userId));
