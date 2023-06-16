@@ -48,7 +48,7 @@ public class UserController {
         attributes.put("user", userService.getUserByUserId(userId));
         // 向topic cars and drivers 发送消息
         Message<Integer> car_message = new Message<>(id.incrementAndGet(),userId);
-        CompletableFuture<SendResult<Long, Message>> car_future = template.send("cars",car_message.getKey(),car_message);
+        CompletableFuture<SendResult<Long, Message>> car_future = template.send("car",car_message.getKey(),car_message);
         try {
             attributes.put("cars",car_future.get().getProducerRecord().value().getData());
         } catch (InterruptedException | ExecutionException e) {
@@ -56,7 +56,7 @@ public class UserController {
         }
 
         Message<Integer> driver_message = new Message<>(id.incrementAndGet(),userId);
-        CompletableFuture<SendResult<Long,Message>> driver_future = template.send("drivers",driver_message.getKey(),driver_message);
+        CompletableFuture<SendResult<Long,Message>> driver_future = template.send("driver",driver_message.getKey(),driver_message);
         //等待消费者返回消息
         try {
             attributes.put("drivers",driver_future.get().getProducerRecord().value().getData());
