@@ -42,7 +42,7 @@ public class GoodsController {
      * @param goodsDto
      * @return ResponseResult
      */
-    @RequestMapping(value = "/consigner/goods", method = RequestMethod.POST)
+    @RequestMapping(value = "/consigner/{id}/goods", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('consigner')")
     public ResponseResult createGoods(GoodsDao goodsDto){
         if(bucket.tryConsume(1)){
@@ -52,7 +52,7 @@ public class GoodsController {
         }
     }
 
-    @RequestMapping(value = "/company/goods", method = RequestMethod.GET)
+    @RequestMapping(value = "/company/{id}/goods", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult getShopGoods() {
         if(bucket.tryConsume(1)){

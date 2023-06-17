@@ -41,7 +41,7 @@ public class OrderController {
      * @param order
      * @return
      */
-    @RequestMapping(value = "/company/order", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/{id}/order", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult createOrder(@RequestBody Map<String,String> order){
         if(bucket.tryConsume(1)){
@@ -62,7 +62,7 @@ public class OrderController {
      * @param now_addr
      * @return
      */
-    @RequestMapping(value = "/company/order/{orderId}/{status}/{now_addr}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/company/{id}/order/{orderId}/{status}/{now_addr}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult updateOrder(@PathParam(value = "orderId") String orderId,@PathParam(value = "status") String status, @PathParam(value = "now_addr") String now_addr){
         if(bucket.tryConsume(1)){
@@ -78,7 +78,7 @@ public class OrderController {
      * @param orderId
      * @return
      */
-    @RequestMapping(value = "/company/order/{orderId}/statue/signed", method = RequestMethod.PUT)
+    @RequestMapping(value = "/company/{id}/order/{orderId}/statue/signed", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('consigner')")
     public ResponseResult updateOrderSign(@PathParam(value = "orderId")String orderId){
         if(bucket.tryConsume(1)){
@@ -89,7 +89,7 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/consigner/orders",method = RequestMethod.GET)
+    @RequestMapping(value = "/consigner/{id}/orders",method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('consigner')")
     public ResponseResult getOrders(){
         if(bucket.tryConsume(1)){
@@ -101,7 +101,7 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/company/orders", method = RequestMethod.GET)
+    @RequestMapping(value = "/company/{id}/orders", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult getShopOrder() {
         if(bucket.tryConsume(1)){

@@ -36,6 +36,7 @@ public class LoginController {
     @RequestMapping(value="/index",method=RequestMethod.POST)
     public ModelAndView Login(UserDao user){
        ResponseResult responseResult = loginService.login(user);
+       System.out.println(((Map) responseResult.getData()).get("token"));
        if(responseResult.getCode()==200){
          return loginSuccess(responseResult);
        }else{

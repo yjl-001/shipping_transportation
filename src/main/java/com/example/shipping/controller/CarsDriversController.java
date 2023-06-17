@@ -40,7 +40,7 @@ public class CarsDriversController {
      * Controller 获得公司名下所有的车辆和司机
      * @return RespnseResult
      */
-    @RequestMapping(value = "/company/cars-drivers", method = RequestMethod.GET)
+    @RequestMapping(value = "/company/{id}/cars-drivers", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult getCarsDrivers(){
         if(bucket.tryConsume(1)){
@@ -60,7 +60,7 @@ public class CarsDriversController {
      * @param driverDao 前端传给后端的数据
      * @return ResponseResult
      */
-    @RequestMapping(value = "/company/driver", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/{id}/driver", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult addDriver(DriverDao driverDao){
         if(bucket.tryConsume(1)){
@@ -76,7 +76,7 @@ public class CarsDriversController {
      * @param carDao 前端传给后端的数据
      * @return ResponseResult
      */
-    @RequestMapping(value = "/company/car", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/{id}/car", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult addCar(CarDao carDao) {
         if(bucket.tryConsume(1)){

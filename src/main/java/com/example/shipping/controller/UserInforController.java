@@ -23,7 +23,7 @@ public class UserInforController {
     @Autowired
     private DriverService driverService;
 
-    @RequestMapping(value = "/consigner/info", method = RequestMethod.GET)
+    @RequestMapping(value = "/consigner/{id}/info", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('consigner')")
     public ResponseResult getConsignerInfo() {
         Map<String, Object> attributes = new HashMap<>();
@@ -31,7 +31,7 @@ public class UserInforController {
         return new ResponseResult<Map<String,Object>>(200, "success", attributes);
     }
 
-    @RequestMapping(value = "/company/info", method = RequestMethod.GET)
+    @RequestMapping(value = "/company/{id}/info", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('company')")
     public ResponseResult getCompanyInfo() {
         Map<String, Object> attributes = new HashMap<>();
