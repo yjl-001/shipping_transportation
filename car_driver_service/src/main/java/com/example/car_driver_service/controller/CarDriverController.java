@@ -56,7 +56,7 @@ public class CarDriverController {
      * @param carDao 前端传给后端的数据
      * @return ResponseResult
      */
-    @RequestMapping(value = "/company/car", method = RequestMethod.POST)
+    @RequestMapping(value = "/company/{id}/car", method = RequestMethod.POST)
     public ResponseResult addCar(@RequestBody CarDao carDao,@PathParam("id")Integer userId) {
         carService.insertCar(carDao,userId);
         return new ResponseResult<>(200, "success", null);

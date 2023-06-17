@@ -39,7 +39,7 @@ public class OrderController {
      * @param now_addr
      * @return
      */
-    @RequestMapping(value = "/company/order/{orderId}/{status}/{now_addr}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/company/{id}/order/{orderId}/{status}/{now_addr}", method = RequestMethod.PUT)
     public ResponseResult updateOrder(@PathParam(value = "orderId") String orderId,@PathParam(value = "status") String status, @PathParam(value = "now_addr") String now_addr){
         orderService.updateOrder(orderId,status,now_addr);
         return new ResponseResult<>(200, "success", null);
@@ -50,7 +50,7 @@ public class OrderController {
      * @param orderId
      * @return
      */
-    @RequestMapping(value = "/company/order/{orderId}/statue/signed", method = RequestMethod.PUT)
+    @RequestMapping(value = "/company/{id}/order/{orderId}/statue/signed", method = RequestMethod.PUT)
     public ResponseResult updateOrderSign(@PathParam(value = "orderId")String orderId){
         orderService.updateOrderSign(orderId);
         return new ResponseResult<>(200, "success", null);

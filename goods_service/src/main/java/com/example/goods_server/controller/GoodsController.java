@@ -27,7 +27,7 @@ public class GoodsController {
         return goodsService.createGoods(goodsDao,userId);
     }
 
-    @RequestMapping(value = "/company/goods", method = RequestMethod.GET)
+    @RequestMapping(value = "/company/{id}/goods", method = RequestMethod.GET)
     public ResponseResult getShopGoods() {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("goods", goodsService.getAllUntranspotedGoods());
